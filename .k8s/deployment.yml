@@ -1,8 +1,7 @@
 apiVersion: v1
-kind: Service
+kind: Namespace
 metadata:
   name: eshoponweb-013
-  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,6 +30,20 @@ spec:
               protocol: TCP
           env:
             - name: ASPNETCORE_URLS
-              value: http://+:80
+              value: [+](http://+:80)
             - name: WebApiBaseAddress
-              value: http://webapi
+              value: [webapi](http://webapi)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: eshoponweb-013
+  name: webapp
+spec:
+  selector:
+    service: webapp
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  type: ClusterIP
