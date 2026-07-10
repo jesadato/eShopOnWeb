@@ -32,5 +32,4 @@ jobs:
           manifests: |
             .k8s/deployment.yml
             .k8s/service.yml
-          images: ${{ env.IMAGE_NAME }}
-          imagepullsecrets: aks-secret      
+          images: ${{ env.IMAGE_NAME }}    
