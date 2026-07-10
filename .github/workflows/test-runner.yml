@@ -6,6 +6,7 @@ jobs:
       - self-hosted
       - docker
       - javascript
+      - ubuntu-latest
     
     steps:
       - run: echo "Test echo in first github runner"
