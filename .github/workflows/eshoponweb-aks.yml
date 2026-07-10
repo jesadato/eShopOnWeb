@@ -3,31 +3,12 @@ on: workflow_dispatch
  
 env:
   ACR_LOGIN_SERVER: aistraining.azurecr.io
-  TAG_NAME: eshoponweb-019:1.0.0
-  IMAGE_NAME: ${{ vars.ACR_LOGIN_SERVER }}/${{ vars.TAG_NAME }}
+  TAG_NAME: eshoponweb-013
+  IMAGE_NAME: aistraining.azurecr.io/eshoponwebapp-user003:1.0.0
   RESOURCE_GROUP: ais-training
   CLUSTER_NAME: aks-demo
  
 jobs:
-  build-container:
-    if: false
-    runs-on: ubuntu-latest
- 
-    steps:
-      - name: Checkput source code
-        uses: actions/checkout@v7.0.0
- 
-      - name: ACR Login
-        uses: azure/docker-login@v1
-        with:
-          login-vserver: ${{ env.ACR_LOGIN_SERVER }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD}}
- 
-      - name: Build and Push Image
-        run: |
-          docker build -f src/Web/Dockerfile -t ${{ env.ACR_LOGIN_SERVER }}/${{ env.TAG_NAME }} .
-          docker push ${{ env.ACR_LOGIN_SERVER }}/${{ env.TAG_NAME }}
   deploy-to-aks:
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +23,7 @@ jobs:
         with:
           container-registry-url: ${{ env.ACR_LOGIN_SERVER }}
           container-registry-name: aistraining
+          username: ${{ secrets.ACR_USERNAME }}
           container-registry-password: ${{ secrets.ACR_PASSWORD }}
           secret-name: aks-secret
  
@@ -50,5 +32,5 @@ jobs:
           manifests: |
             .k8s/deployment.yaml
             .k8s/service.yaml
-          images: ${{ env.ACR_LOGIN_SERVER }}/${{ env.TAG_NAME }}
+          images: ${{ env.IMAGE_NAME }}
           imagepullsecrets: aks-secret      
