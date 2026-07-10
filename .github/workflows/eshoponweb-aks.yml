@@ -1,6 +1,7 @@
 name: Container Workflow
 on: workflow_dispatch
 
+
 env:
   ACR_LOGIN_SERVER: aistraining.azurecr.io
   TAG_NAME: eshoponweb-013:1.0.0
