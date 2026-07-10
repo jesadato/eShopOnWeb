@@ -43,4 +43,3 @@ jobs:
             .k8s/deployment.yml
             .k8s/service.yml
           image: ${{ env.ACR_LOGIN_SERVER }}/${{ env.TAG_NAME }}
-        
