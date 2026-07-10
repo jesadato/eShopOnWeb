@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: aistraining.azurecr.io/eshoponweb-013:1.0.0
+          image: aistraining.azurecr.io/eshoponwebapp-user003:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
