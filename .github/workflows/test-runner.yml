@@ -10,3 +10,5 @@ jobs:
     
     steps:
       - run: echo "Test echo in first github runner"
+      - name: Checkout
+        uses: action/checkout@v7.0.0
